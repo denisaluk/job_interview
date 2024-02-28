@@ -8,7 +8,6 @@ import time
 class Task1(unittest.TestCase):
 
     def setUp(self):
-        # driver = webdriver.Firefox()
         self.driver = webdriver.Chrome()  #basic run
 
     # Scenario: Positive case
@@ -26,10 +25,6 @@ class Task1(unittest.TestCase):
         self.assertNotIn("Epic sadface: Password is required", driver.page_source)
         self.assertNotIn("Epic sadface: Username is required", driver.page_source)
         self.assertNotIn("Epic sadface: Username and password do not match any user in this service", driver.page_source)
-        # assert "Epic sadface: Password is required" not in driver.page_source
-        # assert "Epic sadface: Username is required" not in driver.page_source
-        # assert "Epic sadface: Username and password do not match any user in this service" not in driver.page_source
-
 
     # Scenario: Negative case
     # Accepted user cant login with wrong password
@@ -45,13 +40,9 @@ class Task1(unittest.TestCase):
         self.assertNotIn("Epic sadface: Password is required", driver.page_source)
         self.assertNotIn("Epic sadface: Username is required", driver.page_source)
         self.assertIn("Epic sadface: Username and password do not match any user in this service", driver.page_source)
-# assert "Epic sadface: Password is required" not in driver.page_source
-# assert "Epic sadface: Username is required" not in driver.page_source
-# assert "Epic sadface: Username and password do not match any user in this service" in driver.page_source
 
-#
-# # Scenario: Negative case
-# # Not accepted user cant login with correct password
+    # Scenario: Negative case
+    # Not accepted user cant login with correct password
     def test3(self):
         driver = self.driver
         driver.get("http://www.saucedemo.com")
@@ -64,34 +55,22 @@ class Task1(unittest.TestCase):
         self.assertNotIn("Epic sadface: Password is required", driver.page_source)
         self.assertNotIn("Epic sadface: Username is required", driver.page_source)
         self.assertIn("Epic sadface: Username and password do not match any user in this service", driver.page_source)
-# assert "Epic sadface: Password is required" not in driver.page_source
-# assert "Epic sadface: Username is required" not in driver.page_source
-# assert "Epic sadface: Username and password do not match any user in this service" in driver.page_source
-#
-#
-# # Scenario:Positive case
-# # Accepted user can login after login failed
-# #
-# # Scenario: Security
-# # Not accepted user cant login
-# # Access denied with empty credentials-> missing username
-# # Access denied with empty credentials-> missing password
-# #
-# # Scenario:Page view/functionality
-# # Login by enter or button
-# driver.find_element(By.ID, "submit").click()
-#
 
+        # Scenario:Positive case
+        # Accepted user can login after login failed
 
-# elem.clear()
+        # Scenario: Security
+        # Not accepted user cant login
+        # Access denied with empty credentials-> missing username
+        # Access denied with empty credentials-> missing password
 
-# assert "Epic sadface: Password is required" in driver.page_source
-# assert "Epic sadface: Username is required" in driver.page_source
-# assert "Epic sadface: Username and password do not match any user in this service" in driver.page_source
-
+        # Scenario:Page view/functionality
+        # Login by enter or button
+        driver.find_element(By.ID, "submit").click()
 
 #     def tearDown(self):
 #         self.driver.close()
+
 
 if __name__ == "__main__":
     unittest.main()
