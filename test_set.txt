@@ -1,0 +1,8 @@
+{"name": "morpheus", "job": "leader"}
+{"name": "morpheus"}
+{"place": "leader"}
+{"empty_value":""}
+{"":"empty_key"}
+{}
+['error_list','response_code=201','response_data=list']
+'error_string_response_400'

@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-import time
 
 class Task1(unittest.TestCase):
 
@@ -25,6 +24,7 @@ class Task1(unittest.TestCase):
         self.assertNotIn("Epic sadface: Password is required", driver.page_source)
         self.assertNotIn("Epic sadface: Username is required", driver.page_source)
         self.assertNotIn("Epic sadface: Username and password do not match any user in this service", driver.page_source)
+        self.assertIn("shopping_cart_link", driver.page_source)
 
     # Scenario: Negative case
     # Accepted user cant login with wrong password
@@ -56,17 +56,51 @@ class Task1(unittest.TestCase):
         self.assertNotIn("Epic sadface: Username is required", driver.page_source)
         self.assertIn("Epic sadface: Username and password do not match any user in this service", driver.page_source)
 
-        # Scenario:Positive case
-        # Accepted user can login after login failed
+    # Scenario:Positive case
+    # Accepted user can login after login failed
 
-        # Scenario: Security
-        # Not accepted user cant login
-        # Access denied with empty credentials-> missing username
-        # Access denied with empty credentials-> missing password
+    # Scenario: Security
+    # Access denied with empty credentials-> missing username
+    def test4(self):
+        driver = self.driver
+        driver.get("http://www.saucedemo.com")
+        self.assertIn("Swag Labs", driver.title)
+        pass_box = driver.find_element_by_id('password')
+        pass_box.send_keys('secret_sauce')
+        pass_box.send_keys(Keys.RETURN)
+        self.assertNotIn("Epic sadface: Password is required", driver.page_source)
+        self.assertIn("Epic sadface: Username is required", driver.page_source)
+        self.assertNotIn("Epic sadface: Username and password do not match any user in this service",
+                      driver.page_source)
 
-        # Scenario:Page view/functionality
-        # Login by enter or button
-        driver.find_element(By.ID, "submit").click()
+    # Scenario: Security
+    # Access denied with empty credentials-> missing password
+    def test5(self):
+        driver = self.driver
+        driver.get("http://www.saucedemo.com")
+        self.assertIn("Swag Labs", driver.title)
+        user_box = driver.find_element_by_id('user-name')
+        user_box.send_keys('error_user')  # invalid username
+        user_box.send_keys(Keys.RETURN)
+        self.assertIn("Epic sadface: Password is required", driver.page_source)
+        self.assertNotIn("Epic sadface: Username is required", driver.page_source)
+        self.assertNotIn("Epic sadface: Username and password do not match any user in this service",
+                      driver.page_source)
+
+    # Scenario: Security
+    # Empty credentials
+    def test6(self):
+        driver = self.driver
+        driver.get("http://www.saucedemo.com")
+        self.assertIn("Swag Labs", driver.title)
+        driver.find_element(By.ID, "login-button").click()
+        self.assertNotIn("Epic sadface: Password is required", driver.page_source)
+        self.assertIn("Epic sadface: Username is required", driver.page_source)
+        self.assertNotIn("Epic sadface: Username and password do not match any user in this service",
+                      driver.page_source)
+
+    # Scenario:Page view/functionality
+    # Login by enter or button
 
 #     def tearDown(self):
 #         self.driver.close()
