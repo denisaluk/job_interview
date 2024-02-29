@@ -14,7 +14,6 @@ class TestCase2(unittest.TestCase):
             lines = f.readlines() #list of strings
 
         for line in lines:
-            print(line)
 
             try:
                 postdata = json.loads(line)
@@ -27,7 +26,6 @@ class TestCase2(unittest.TestCase):
                 self.assertTrue(response.json().get('id'), 'Key ID not in response')
                 self.assertTrue(response.json().get('createdAt'), 'Key CREATEDAT not in response')
                 for key in postdata:
-                    print(response.text)
                     self.assertEqual(postdata.get(key), response.json().get(key))
 
 
